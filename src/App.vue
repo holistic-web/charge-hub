@@ -8,12 +8,24 @@
       alt="Charge Hub"
       src="./assets/onewheel.png">
 
+    <google-map/>
+
   </section>
 </template>
 
+<script>
+import GoogleMap from './components/GoogleMap';
+
+export default {
+    components: {
+        GoogleMap
+    }
+}
+</script>
+
 <style lang="scss">
 body {
-	margin: 0;
+    margin: 0;
 }
 
 #app {

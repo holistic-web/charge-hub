@@ -5,6 +5,6 @@ let google = null;
 
 export default async function () {
     if (google) return google;
-	google = loader.load();
-	return google;
+    google = loader.load();
+    return google;
 }

@@ -8,20 +8,20 @@ At the core of the idea is a crowd source database of available charging sockets
 
 ## Fact Sheet
 
-| Key              | Value               |
-| ---------------- | ------------------- |
-| Live URL         | _To be implemented_ |
-| Dev URL          | _To be implemented_ |
-| UI Framework     | Vue.js              |
-| Database         | _To be implemented_ |
-| CI               | _To be implemented_ |
-| Firebase Project | _To be implemented_ |
+| Key              | Value                           |
+|------------------|---------------------------------|
+| Live URL         | https://charge-hub.web.app/     |
+| Dev URL          | https://charge-hub-dev.web.app/ |
+| UI Framework     | Vue.js                          |
+| Database         | _To be implemented_             |
+| CI               | Github Actions                  |
+| Firebase Project | charge-hub                      |
 
 ## CI
 
-This project will use github actions to automate deployment to live and development URLs based off of the `main` and `development` branches respectively.
-
-We use firebase to host the static builds.
+We have actions stored in `/.github/workflows/`, currently we have two automated actions configured:
+- `lint`: runs against every branch, required to pass to merge into `main` or `development`.
+- `deploy`: runs against `main` and `development` and deploys to the dev or live site respectively
 
 ## UI Development
 

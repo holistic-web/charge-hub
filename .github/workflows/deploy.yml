@@ -30,7 +30,7 @@ jobs:
             - name: Set to live if branch is main
               if: github.ref == 'refs/heads/main'
               run: |
-                contents="$(jq '.hosting.side = "charge-hub"' firebase.json)" && \
+                contents="$(jq '.hosting.site = "charge-hub"' firebase.json)" && \
                 echo "${contents}" > firebase.json
 
 

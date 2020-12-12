@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-    - master
+    - main
     - development
 
 jobs:
@@ -28,8 +28,8 @@ jobs:
         npm ci
         npm run build
 
-    - name: Set to live if branch is master
-      if: github.ref == 'refs/heads/master'
+    - name: Set to live if branch is main
+      if: github.ref == 'refs/heads/main'
       run: |
         sudo apt-get install jq
         jq -c '.site = $newVal' --arg newVal charge-hub' <<<"$jsonStr" firebase.json > tmp.$$.json && mv tmp.$$.json firebase.json

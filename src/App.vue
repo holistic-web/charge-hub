@@ -1,9 +1,6 @@
 <template>
     <section class="App">
-        <h1>Charge Hub - Coming Soon!</h1>
-
-        <img class="App__image" alt="Charge Hub" src="./assets/onewheel.png" />
-
+        <h1 class="App__title">Charge Hub</h1>
         <google-map class="App__map" />
     </section>
 </template>
@@ -19,6 +16,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import './styles/fonts';
+
 body {
     margin: 0;
 }
@@ -30,19 +29,25 @@ body {
 }
 
 .App {
+    $titleHeight: 50px;
+
+    font-family: $font-family;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     min-height: 100vh;
+    display: flex;
 
-    &__image {
-        width: 50%;
+    &__title {
+        margin: 0;
+        height: $titleHeight;
+        line-height: $titleHeight;
     }
 
     &__map {
-        width: 50%;
-        height: 400px;
+        width: 100%;
+        height: calc(100vh - #{$titleHeight});
     }
 }
 </style>

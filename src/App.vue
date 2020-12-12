@@ -1,26 +1,21 @@
 <template>
   <section class="App">
-
     <h1>Charge Hub - Coming Soon!</h1>
 
-    <img
-      class="App__image"
-      alt="Charge Hub"
-      src="./assets/onewheel.png">
+    <img class="App__image" alt="Charge Hub" src="./assets/onewheel.png" />
 
-    <google-map class="App__map"/>
-
+    <google-map class="App__map" />
   </section>
 </template>
 
 <script>
-import GoogleMap from './components/GoogleMap';
+import GoogleMap from "./components/GoogleMap";
 
 export default {
-    components: {
-        GoogleMap
-    }
-}
+  components: {
+    GoogleMap,
+  },
+};
 </script>
 
 <style lang="scss">

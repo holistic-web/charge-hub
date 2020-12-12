@@ -1,0 +1,5 @@
+# Ignore artifacts:
+dist
+
+# Ignore github yaml due to bug: "SyntaxError: A collection cannot be both a mapping and a sequence"
+.github

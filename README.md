@@ -27,34 +27,34 @@ We use firebase to host the static builds.
 
 1. Ensure you are up to date with the latest code from the development branch.
 
-   ```bash
-   git checkout development
-   git pull
-   ```
+    ```bash
+    git checkout development
+    git pull
+    ```
 
 1. Checkout a new branch with your changes on it
 
-   ```bash
-   git checkout -b feat/my-amazing-new-feature
-   ```
+    ```bash
+    git checkout -b feat/my-amazing-new-feature
+    ```
 
 1. Install NPM dependencies
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 1. Run the UI locally and make / test any changes
 
-   ```bash
-   npm run serve
-   ```
+    ```bash
+    npm run serve
+    ```
 
 1. Ensure your branch is still up to date with development
 
-   ```bash
-   git pull origin development
-   ```
+    ```bash
+    git pull origin development
+    ```
 
 1. Create a PR explaining what you've changed 🦸
 

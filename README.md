@@ -9,7 +9,7 @@ At the core of the idea is a crowd source database of available charging sockets
 ## Fact Sheet
 
 | Key              | Value                           |
-|------------------|---------------------------------|
+| ---------------- | ------------------------------- |
 | Live URL         | https://charge-hub.web.app/     |
 | Dev URL          | https://charge-hub-dev.web.app/ |
 | UI Framework     | Vue.js                          |
@@ -20,8 +20,9 @@ At the core of the idea is a crowd source database of available charging sockets
 ## CI
 
 We have actions stored in `/.github/workflows/`, currently we have two automated actions configured:
-- `lint`: runs against every branch, required to pass to merge into `main` or `development`.
-- `deploy`: runs against `main` and `development` and deploys to the dev or live site respectively
+
+-   `lint`: runs against every branch, required to pass to merge into `main` or `development`.
+-   `deploy`: runs against `main` and `development` and deploys to the dev or live site respectively
 
 ## UI Development
 

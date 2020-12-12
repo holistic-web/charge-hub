@@ -30,7 +30,7 @@ jobs:
             - name: Set to live if branch is main
               if: github.ref == 'refs/heads/main'
               run: |
-                jq '.hosting.site = "charge-hub"' firebase.json|sponge firebase.json
+                jq '.hosting.site = "charge-hub"' firebase.json > "$tmp" && mv "$tmp" firebase.json
 
             - name: Deploy to Firebase
               uses: w9jds/firebase-action@master

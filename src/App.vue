@@ -1,7 +1,11 @@
 <template>
     <section class="App">
         <h1 class="App__title">Charge Hub</h1>
-        <google-map class="App__map" />
+
+        <google-map
+            :center="{ lat: 51.5074, lng: 0.1278 }"
+            class="App__map" />
+
     </section>
 </template>
 

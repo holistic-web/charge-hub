@@ -6,6 +6,12 @@
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 
 export default {
+    props: {
+        center: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
             google: null,
@@ -17,8 +23,8 @@ export default {
     methods: {
         drawMap() {
             new this.google.maps.Map(this.$refs.map, {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 8,
+                center: this.center,
+                zoom: 11
             });
         },
     },

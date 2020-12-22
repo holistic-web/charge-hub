@@ -10,28 +10,56 @@ export default {
         center: {
             type: Object,
             required: true
+        },
+        pins: {
+            type: Array,
+            default: () => []
         }
     },
     data() {
         return {
-            google: null,
+            googleService: null,
+            map: null
         };
     },
-    async created() {
-        this.google = await loadGoogleMaps();
+    computed: {
+        isPageReady() {
+            return !!this.googleService
+                && !!this.map
+        }
     },
     methods: {
         drawMap() {
-            new this.google.maps.Map(this.$refs.map, {
+            this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: this.center,
-                zoom: 11
+                zoom: 16,
             });
         },
+        drawPins() {
+            for (let i=0; i<this.pins.length; i++) {
+                const pin = this.pins[i];
+                pin.marker = new this.googleService.maps.Marker({
+                    position: {
+                        lat: pin.location.latitude,
+                        lng: pin.location.longitude
+                    },
+                    map: this.map,
+                });
+            }
+        }
+    },
+    async created() {
+        this.googleService = await loadGoogleMaps();
+        await this.$nextTick();
+        this.drawMap();
     },
     watch: {
-        google() {
-            if (this.google) this.drawMap();
+        pins() {
+            if (this.isPageReady) this.drawPins();
         },
-    },
+        isPageReady() {
+            this.drawPins();
+        }
+    }          
 };
 </script>

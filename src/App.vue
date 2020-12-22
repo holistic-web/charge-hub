@@ -1,9 +1,10 @@
 <template>
     <section class="App">
         <h1 class="App__title">Charge Hub</h1>
-
         <google-map
+            v-if="!pageState.isLoading"
             :center="{ lat: 51.5074, lng: 0.1278 }"
+            :pins="pins"
             class="App__map" />
 
     </section>
@@ -34,12 +35,18 @@ export default {
     data() {
         return {
             pins: [],
+            pageState: {
+                isLoading: false,
+            }
         };
     },
     methods: {
         async loadPins() {
-            const querySnapshot = await db.collection('charge-locations').get();
+            this.pageState.isLoading = true;
+            const ref = db.collection('charge-locations');
+            const querySnapshot = await ref.get();
             querySnapshot.forEach((doc) => this.pins.push(doc.data()));
+            this.pageState.isLoading = false;
         },
     },
     created() {

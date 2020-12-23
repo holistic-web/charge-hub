@@ -5,9 +5,12 @@
 			subtitle="So you can keep on riding 🤙">
 
 			<google-map
+				v-if="false"
 				class="App__map"
 				:center="center"
 				:pins="pins"/>
+
+			<new-location-form/>
 
 			<el-taskbar>
 				<el-button>+ Add Charge Location</el-button>
@@ -20,7 +23,9 @@
 <script>
 import { ElLayout, ElTaskbar, ElButton } from '@holistic-web/el-layout';
 import GoogleMap from './components/GoogleMap.vue';
+import NewLocationForm from './components/NewLocationForm.vue';
 import firebaseService from './lib/firebaseService';
+import getUserLocation from './lib/getUserLocation';
 
 const db = firebaseService.firestore();
 
@@ -31,7 +36,8 @@ export default {
 		ElLayout,
 		GoogleMap,
 		ElTaskbar,
-		ElButton
+		ElButton,
+		NewLocationForm
 	},
 	data() {
 		return {
@@ -45,8 +51,9 @@ export default {
 			querySnapshot.forEach(doc => this.pins.push(doc.data()));
 		}
 	},
-	created() {
+	async created() {
 		this.loadPins();
+		this.center = await getUserLocation();
 	}
 };
 </script>

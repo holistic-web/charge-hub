@@ -38,7 +38,7 @@ export default {
 		drawMap() {
 			this.map = new this.googleService.maps.Map(this.$refs.map, {
 				center: convertGeoLocation(this.center),
-				zoom: 8
+				zoom: 16
 			});
 			this.pins.forEach(pin => {
 				pin.marker = new this.googleService.maps.Marker({

@@ -1,82 +1,74 @@
 <template>
-    <section class="App">
-        <h1 class="App__title">Charge Hub</h1>
-        <google-map class="App__map" />
-    </section>
+	<div id="app">
+		<el-layout
+			title="Charge Hub"
+			subtitle="So you can keep on riding 🤙">
+
+			<google-map
+				v-if="false"
+				class="App__map"
+				:center="center"
+				:pins="pins"/>
+
+			<new-location-form/>
+
+			<el-taskbar>
+				<el-button>+ Add Charge Location</el-button>
+			</el-taskbar>
+
+		</el-layout>
+	</div>
 </template>
 
 <script>
-import firebase from 'firebase';
-import GoogleMap from './components/GoogleMap';
+import { ElLayout, ElTaskbar, ElButton } from '@holistic-web/el-layout';
+import GoogleMap from './components/GoogleMap.vue';
+import NewLocationForm from './components/NewLocationForm.vue';
+import firebaseService from './lib/firebaseService';
+import getUserLocation from './lib/getUserLocation';
 
-firebase.initializeApp({
-    apiKey: 'AIzaSyCzrOC9Sa6UyZXbffHgjfU_5GKPTH-RHpg',
-    authDomain: 'charge-hub.firebaseapp.com',
-    databaseURL:
-        'https://charge-hub-default-rtdb.europe-west1.firebasedatabase.app',
-    projectId: 'charge-hub',
-    storageBucket: 'charge-hub.appspot.com',
-    messagingSenderId: '760484226654',
-    appId: '1:760484226654:web:a7685ea54c3d05a1c976cf',
-    measurementId: 'G-64CVS8G661',
-});
+const db = firebaseService.firestore();
 
-const db = firebase.firestore();
 
 export default {
-    components: {
-        GoogleMap,
-    },
-    data() {
-        return {
-            pins: [],
-        };
-    },
-    methods: {
-        async loadPins() {
-            const querySnapshot = await db.collection('charge-locations').get();
-            querySnapshot.forEach((doc) => this.pins.push(doc.data()));
-        },
-    },
-    created() {
-        this.loadPins();
-    },
+	name: 'App',
+	components: {
+		ElLayout,
+		GoogleMap,
+		ElTaskbar,
+		ElButton,
+		NewLocationForm
+	},
+	data() {
+		return {
+			center: { latitude: 51.537762, longitude: -0.023270 },
+			pins: []
+		};
+	},
+	methods: {
+		async loadPins() {
+			const querySnapshot = await db.collection('charge-locations').get();
+			querySnapshot.forEach(doc => this.pins.push(doc.data()));
+		}
+	},
+	async created() {
+		this.loadPins();
+		this.center = await getUserLocation();
+	}
 };
 </script>
 
 <style lang="scss">
-@import './styles/fonts';
-
-body {
-    margin: 0;
-}
-
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	font-family: 'Fira Code', monospace;
 }
 
 .App {
-    $titleHeight: 50px;
 
-    font-family: $font-family;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 100vh;
-    display: flex;
-
-    &__title {
-        margin: 0;
-        height: $titleHeight;
-        line-height: $titleHeight;
-    }
-
-    &__map {
-        width: 100%;
-        height: calc(100vh - #{$titleHeight});
-    }
+	&__map {
+		// this fix height accounts for the taskbar
+		//TODO: update to support mobile also
+		height: calc(100% - 64px);
+	}
 }
 </style>

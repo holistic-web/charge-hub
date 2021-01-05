@@ -1,5 +1,5 @@
 {
-  "projects": {
-    "default": "charge-hub"
-  }
+	"projects": {
+		"default": "charge-hub"
+	}
 }

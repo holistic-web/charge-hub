@@ -4,7 +4,7 @@ const loader = new Loader('AIzaSyCezAcRBAa44EYeUev8qgkzxfotiObhQS0', {});
 let google = null;
 
 export default async function () {
-    if (google) return google;
-    google = loader.load();
-    return google;
+	if (google) return google;
+	google = loader.load();
+	return google;
 }

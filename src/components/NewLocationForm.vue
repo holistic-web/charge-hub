@@ -3,7 +3,8 @@
 
 		<google-map
 			class="NewLocationForm__map"
-			:center="center"/>
+			:center="center"
+			@mapClick="handleMapClick"/>
 
 		<el-button>Get my Location</el-button>
 		<el-button>Select on Maps</el-button>
@@ -38,6 +39,13 @@ export default {
 				location: null
 			}
 		};
+	},
+	methods: {
+		handleMapClick(location) {
+			// this.location = JSON.stringify(location);
+			console.log('the location', location);
+
+		}
 	},
 	async created() {
 		this.center = await getUserLocation();

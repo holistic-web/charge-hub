@@ -5,10 +5,17 @@
 <script>
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 
-function convertGeoLocation(location) {
+function convertGeoLocationToGoole(location) {
 	return {
 		lat: location.latitude,
 		lng: location.longitude
+	};
+}
+
+function convertGeoLocationFromGoole(location) {
+	return {
+		latitude: location.lat(),
+		longitude: location.lng()
 	};
 }
 
@@ -37,12 +44,15 @@ export default {
 	methods: {
 		drawMap() {
 			this.map = new this.googleService.maps.Map(this.$refs.map, {
-				center: convertGeoLocation(this.center),
+				center: convertGeoLocationToGoole(this.center),
 				zoom: 16
+			});
+			this.map.addListener('click', mapsMouseEvent => {
+				this.$emit('mapClick', convertGeoLocationFromGoole(mapsMouseEvent.latLng));
 			});
 			this.pins.forEach(pin => {
 				pin.marker = new this.googleService.maps.Marker({
-					position: convertGeoLocation(pin.location),
+					position: convertGeoLocationToGoole(pin.location),
 					map: this.map,
 					title: pin.description
 				});

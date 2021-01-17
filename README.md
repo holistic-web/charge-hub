@@ -17,4 +17,4 @@ At the core of the idea is a crowd source database of available charging sockets
 | Firebase Project | charge-hub                     |
 
 ## CI
-We have actions stored in `.github/workflows`, documentation for CI can be found in the relevant tool's readme.
+We have actions stored in `.github/workflows`, documentation for CI can be found in the relevant tools' readme document.

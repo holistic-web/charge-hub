@@ -23,9 +23,7 @@ export default {
 
 <style lang="scss">
 // Fixes what seems to be a bug in vuetify input widths:
-.v-text-field {
-    &--full-width {
-        width: 100%;
-    }
+.v-text-field--full-width {
+    width: 100%;
 }
 </style>

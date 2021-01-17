@@ -1,6 +1,7 @@
 # Charge Hub - Web App
 
 ## CI
+
 We have two automated actions configured for the web-app:
 
 -   `webapp-lint`: runs against every branch, required to pass to merge into `main` or `development`.
@@ -48,5 +49,6 @@ We have two automated actions configured for the web-app:
 1. Create a PR explaining what you've changed 🦸
 
 ## Icons
+
 We have Material Design icons set up as our icon package, all icons can be searched for here:
 https://vuetifyjs.com/en/features/icons/#material-design-icons

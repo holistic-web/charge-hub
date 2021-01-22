@@ -37,25 +37,9 @@ import Loader from '../components/Loader';
 import GoogleMap from '../components/GoogleMap';
 import firebaseService from '../lib/firebaseService';
 import getUserLocation from '../lib/getUserLocation';
+import geocode from '../lib/geocode';
 
 const db = firebaseService.firestore();
-
-// Thanks to  https://stackoverflow.com/a/46064393 for the head start here, it's now somewhat modified
-function geocode(options, geocoder) {
-    return new Promise(function(resolve, reject) {
-        geocoder.geocode(options, function(results, status) {
-            if (status === 'OK') {
-                resolve(results[0]);
-            } else {
-                reject(
-                    new Error(
-                        "Couldnt't find the location " + JSON.stringify(options)
-                    )
-                );
-            }
-        });
-    });
-}
 
 export default {
     components: {
@@ -105,7 +89,7 @@ export default {
         },
         async goToCurrentLocation() {
             try {
-				this.userLocation = await getUserLocation();
+                this.userLocation = await getUserLocation();
                 this.map.center = this.userLocation;
                 const place = await geocode(
                     {

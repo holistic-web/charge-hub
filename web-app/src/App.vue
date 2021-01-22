@@ -17,7 +17,7 @@ firebaseService.auth().onAuthStateChanged(function(user) {
   if (user) {
     window.localStorage.setItem('user', JSON.stringify(user));
   } else {
-	  Vue.$router.push({ name: 'Login' });
+	  Vue.$router.push({ name: 'login' });
   }
 });
 
@@ -29,7 +29,7 @@ export default {
 	data: () => ({}),
 	computed: {
 		showNavBar() {
-			if (this.$route.name === 'Login') return false;
+			if (this.$route.name === 'login') return false;
 			return true;
 		}
 	}

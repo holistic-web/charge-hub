@@ -35,7 +35,7 @@ export default {
 				firebaseService.auth().setPersistence(firebaseService.auth.Auth.Persistence.LOCAL);
 				const user = await firebaseService.auth().signInWithPopup(provider);
 				window.localStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ name: 'Map' });
+                this.$router.push({ name: 'map' });
             } catch (err) {
                 this.page.errorMessage = err.message;
             } finally {

@@ -38,7 +38,7 @@ export default {
             this.page.isSubmitting = true;
             await firebaseService.auth().signOut();
             window.localStorage.removeItem('user');
-            this.$router.push({ name: 'Login' });
+            this.$router.push({ name: 'login' });
             this.page.isSubmitting = false;
         },
 	},

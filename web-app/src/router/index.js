@@ -3,28 +3,34 @@ import VueRouter from 'vue-router';
 import Map from '../views/Map';
 import User from '../views/User';
 import Login from '../views/Login';
+import AddLocation from '../views/AddLocation';
 
 Vue.use(VueRouter);
 
 const routes = [
 	{
 		path: '/map',
-		name: 'Map',
+		name: 'map',
 		component: Map,
 	},
 	{
 		path: '/user',
-		name: 'User',
+		name: 'user',
 		component: User,
 	},
 	{
 		path: '/login',
-		name: 'Login',
+		name: 'login',
 		component: Login,
 	},
 	{
+		path: '/add-location',
+		name: 'add-location',
+		component: AddLocation,
+	},
+	{
 		path: '*',
-		redirect: { name: 'Map' },
+		redirect: { name: 'ap' },
 	},
 ];
 
@@ -36,7 +42,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	const user = window.localStorage.getItem('user');
-	if (to.name !== 'Login' && !user) next({ name: 'Login' });
+	if (to.name !== 'login' && !user) next({ name: 'login' });
 	next();
 });
 

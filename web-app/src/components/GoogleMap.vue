@@ -1,5 +1,5 @@
 <template>
-    <section class="Map" ref="map" />
+    <section class="GoogleMap" ref="map" />
 </template>
 
 <script>

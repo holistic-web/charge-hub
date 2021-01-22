@@ -1,12 +1,14 @@
 <template>
     <section class="Map">
         <v-alert
+            class="Map__alert"
             v-if="page.errorMessage"
             type="error"
             v-text="page.errorMessage"
+            dismissible
         />
 
-        <template v-else>
+        <template>
             <v-text-field
                 placeholder="Search"
                 prepend-inner-icon="mdi-map-marker"
@@ -35,25 +37,9 @@ import Loader from '../components/Loader';
 import GoogleMap from '../components/GoogleMap';
 import firebaseService from '../lib/firebaseService';
 import getUserLocation from '../lib/getUserLocation';
+import geocode from '../lib/geocode';
 
 const db = firebaseService.firestore();
-
-// Thanks to  https://stackoverflow.com/a/46064393 for the head start here, it's now somewhat modified
-function geocode(options, geocoder) {
-    return new Promise(function(resolve, reject) {
-        geocoder.geocode(options, function(results, status) {
-            if (status === 'OK') {
-                resolve(results[0]);
-            } else {
-                reject(
-                    new Error(
-                        "Couldnt't find the location " + JSON.stringify(options)
-                    )
-                );
-            }
-        });
-    });
-}
 
 export default {
     components: {
@@ -68,7 +54,10 @@ export default {
         },
         map: {
             searchTerm: '',
-            center: null,
+            center: {
+                latitude: 51.508,
+                longitude: 0.1281,
+            },
         },
         userLocation: null,
         chargeLocations: [],
@@ -82,10 +71,13 @@ export default {
                     'https://cdn1.iconfinder.com/data/icons/maps-and-navigation-11/24/pin-style-map-park-navigation-three-maps-skate-gps-skateboard-32.png';
                 location.popUp = location.description || 'Charge Location';
             });
-            return [
-                ...this.chargeLocations,
-                { location: this.userLocation, title: 'Your Location' },
-            ];
+            const pins = [...this.chargeLocations];
+            if (this.userLocation)
+                pins.push({
+                    location: this.userLocation,
+                    title: 'Your Location',
+                });
+            return pins;
         },
     },
 
@@ -135,7 +127,7 @@ export default {
         try {
             const googleService = await loadGoogleMaps();
             this.geocoder = new googleService.maps.Geocoder();
-            await this.goToCurrentLocation();
+            this.goToCurrentLocation();
             await this.loadPins();
         } catch (err) {
             this.page.errorMessage = err.message;
@@ -154,6 +146,11 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    &__alert {
+        width: 100%;
+        margin: 0 !important;
+    }
 
     // override to keep search field from growing
     .v-input {

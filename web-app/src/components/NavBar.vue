@@ -1,6 +1,6 @@
 <template>
     <nav class="NavBar">
-		<router-link class="NavBar__item" :to="{ name: 'add-location' }">
+        <router-link class="NavBar__item" :to="{ name: 'add-location' }">
             <v-icon color="dark">mdi-map-marker-plus</v-icon>
             <span>Add Location</span>
         </router-link>
@@ -10,7 +10,7 @@
             <span>Map</span>
         </router-link>
 
-		 <router-link class="NavBar__item" :to="{ name: 'user' }">
+        <router-link class="NavBar__item" :to="{ name: 'user' }">
             <v-icon color="dark">mdi-skateboard</v-icon>
             <span>User</span>
         </router-link>

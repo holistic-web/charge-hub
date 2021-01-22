@@ -1,30 +1,26 @@
 <template>
-	<section class="AddLocation">
+    <section class="AddLocation">
+        <edit-location v-model="location" />
 
-		<edit-location v-model="location"/>
-
-		{{location}}
-
-	</section>
+        {{ location }}
+    </section>
 </template>
 
 <script>
 import EditLocation from '../components/EditLocation';
 
 export default {
-	data: () => ({
-        location: {
-
-		}
+    data: () => ({
+        location: {},
     }),
-	components: {
-		EditLocation
-	}
-}
+    components: {
+        EditLocation,
+    },
+};
 </script>
 
 <style lang="scss">
 .AddLocation {
-	padding: 1rem;
+    padding: 1rem;
 }
 </style>

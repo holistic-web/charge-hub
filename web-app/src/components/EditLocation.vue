@@ -5,7 +5,11 @@
             v-model="map.searchTerm"
             @input="onSearchInput"
         />
-        <google-map class="EditLocation__map" :center="map.center" :pins="pins"/>
+        <google-map
+            class="EditLocation__map"
+            :center="map.center"
+            :pins="pins"
+        />
         <v-text-field
             label="Name"
             v-model="editedValue.name"
@@ -23,8 +27,8 @@ import GoogleMap from './GoogleMap';
 export default {
     components: {
         GoogleMap,
-	},
-	props: {
+    },
+    props: {
         value: {
             required: true,
             type: Object,
@@ -41,26 +45,26 @@ export default {
             searchTerm: '',
         },
         geocoder: null,
-	}),
-	computed: {
-		pins() {
-			return [];
-		}
-	},
+    }),
+    computed: {
+        pins() {
+            return [];
+        },
+    },
     methods: {
         onValueChange() {
             this.$emit('input', this.editedValue);
         },
         onSearchInput: _.debounce(async function() {
-			const place = await geocode(
-				{ address: this.map.searchTerm },
-				this.geocoder
-			);
-			this.map.center = {
-				latitude: place.geometry.location.lat(),
-				longitude: place.geometry.location.lng(),
-			};
-		}, 500)
+            const place = await geocode(
+                { address: this.map.searchTerm },
+                this.geocoder
+            );
+            this.map.center = {
+                latitude: place.geometry.location.lat(),
+                longitude: place.geometry.location.lng(),
+            };
+        }, 500),
     },
     async created() {
         const googleService = await loadGoogleMaps();
@@ -79,8 +83,8 @@ export default {
 
 <style lang="scss">
 .EditLocation {
-	&__map {
-		height: 250px;
-	}
+    &__map {
+        height: 250px;
+    }
 }
 </style>

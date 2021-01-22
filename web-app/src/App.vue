@@ -14,11 +14,11 @@ import NavBar from './components/NavBar';
 import firebaseService from './lib/firebaseService';
 
 firebaseService.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    window.localStorage.setItem('user', JSON.stringify(user));
-  } else {
-	  Vue.$router.push({ name: 'login' });
-  }
+    if (user) {
+        window.localStorage.setItem('user', JSON.stringify(user));
+    } else {
+        Vue.$router.push({ name: 'login' });
+    }
 });
 
 export default {
@@ -26,13 +26,13 @@ export default {
     components: {
         NavBar,
     },
-	data: () => ({}),
-	computed: {
-		showNavBar() {
-			if (this.$route.name === 'login') return false;
-			return true;
-		}
-	}
+    data: () => ({}),
+    computed: {
+        showNavBar() {
+            if (this.$route.name === 'login') return false;
+            return true;
+        },
+    },
 };
 </script>
 
@@ -43,6 +43,6 @@ export default {
 }
 
 .App {
-	width: 100%;
+    width: 100%;
 }
 </style>

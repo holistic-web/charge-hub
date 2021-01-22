@@ -2,34 +2,42 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Map from '../views/Map';
 import User from '../views/User';
+import Login from '../views/Login';
 
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: '/map',
-        name: 'Map',
-        component: Map,
-    },
-    {
-        path: '/user',
-        name: 'User',
-        component: User,
-    },
-    {
-        path: '*',
-        redirect: { name: 'Map' },
-    },
+	{
+		path: '/map',
+		name: 'Map',
+		component: Map,
+	},
+	{
+		path: '/user',
+		name: 'User',
+		component: User,
+	},
+	{
+		path: '/login',
+		name: 'Login',
+		component: Login,
+	},
+	{
+		path: '*',
+		redirect: { name: 'Map' },
+	},
 ];
 
 const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes,
+	mode: 'history',
+	base: process.env.BASE_URL,
+	routes,
 });
 
-// router.beforeEach((to, from, next) => {
-// 	// ...
-// });
+router.beforeEach((to, from, next) => {
+	const user = window.localStorage.getItem('user');
+	if (to.name !== 'Login' && !user) next({ name: 'Login' });
+	next();
+});
 
 export default router;

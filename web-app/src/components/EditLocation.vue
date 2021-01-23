@@ -38,9 +38,6 @@ export default {
         },
     },
     data: () => ({
-        page: {
-            isSubmitting: false,
-        },
         editedValue: {},
         map: {
             center: {

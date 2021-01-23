@@ -16,7 +16,7 @@
         <v-text-field
             label="Give this charge point a name"
             v-model="editedValue.name"
-			@input="onValueChange"
+            @input="onValueChange"
         />
     </section>
 </template>
@@ -39,7 +39,7 @@ export default {
     },
     data: () => ({
         page: {
-			isSubmitting: false,
+            isSubmitting: false,
         },
         editedValue: {},
         map: {
@@ -48,8 +48,8 @@ export default {
                 latitude: 51.508,
                 longitude: 0.1281,
             },
-			searchTerm: '',
-			lastSearchTerm: '',
+            searchTerm: '',
+            lastSearchTerm: '',
         },
         geocoder: null,
     }),
@@ -69,7 +69,7 @@ export default {
             this.$emit('input', this.editedValue);
         },
         onSearchInput: _.debounce(async function() {
-			if (this.map.searchTerm === this.map.lastSearchTerm) return;
+            if (this.map.searchTerm === this.map.lastSearchTerm) return;
             const place = await geocode(
                 { address: this.map.searchTerm },
                 this.geocoder
@@ -82,7 +82,7 @@ export default {
         onMapClick(location) {
             this.editedValue.location = location;
             this.onValueChange();
-		},
+        },
     },
     async created() {
         const googleService = await loadGoogleMaps();

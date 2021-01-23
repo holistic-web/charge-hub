@@ -30,7 +30,7 @@ const routes = [
     },
     {
         path: '*',
-        redirect: { name: 'ap' },
+        redirect: { name: 'map' },
     },
 ];
 

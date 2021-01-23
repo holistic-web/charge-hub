@@ -1,7 +1,7 @@
 export default async () => {
     const pos = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject, {
-            timeout: 5000
+            timeout: 5000,
         });
     });
 

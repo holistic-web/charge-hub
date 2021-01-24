@@ -1,17 +1,20 @@
 <template>
     <section class="EditLocation">
+        <div>
+            <v-text-field
+                label="Search then click the map to add a pin"
+                v-model="map.searchTerm"
+                @input="onSearchInput"
+            />
+            <google-map
+                class="EditLocation__map"
+                :center="map.center"
+                :pins="pins"
+                @mapClick="onMapClick"
+            />
+        </div>
         <v-text-field
-            label="Search"
-            v-model="map.searchTerm"
-            @input="onSearchInput"
-        />
-        <google-map
-            class="EditLocation__map"
-            :center="map.center"
-            :pins="pins"
-        />
-        <v-text-field
-            label="Name"
+            label="Give this charge point a name"
             v-model="editedValue.name"
             @input="onValueChange"
         />
@@ -43,12 +46,19 @@ export default {
                 longitude: 0.1281,
             },
             searchTerm: '',
+            lastSearchTerm: '',
         },
         geocoder: null,
     }),
     computed: {
         pins() {
-            return [];
+            if (!this.editedValue.location) return [];
+            return [
+                {
+                    location: this.editedValue.location,
+                    title: 'Your Location',
+                },
+            ];
         },
     },
     methods: {
@@ -56,6 +66,7 @@ export default {
             this.$emit('input', this.editedValue);
         },
         onSearchInput: _.debounce(async function() {
+            if (this.map.searchTerm === this.map.lastSearchTerm) return;
             const place = await geocode(
                 { address: this.map.searchTerm },
                 this.geocoder
@@ -65,6 +76,10 @@ export default {
                 longitude: place.geometry.location.lng(),
             };
         }, 500),
+        onMapClick(location) {
+            this.editedValue.location = location;
+            this.onValueChange();
+        },
     },
     async created() {
         const googleService = await loadGoogleMaps();
@@ -83,6 +98,10 @@ export default {
 
 <style lang="scss">
 .EditLocation {
+    > * {
+        margin-bottom: 1rem;
+    }
+
     &__map {
         height: 250px;
     }

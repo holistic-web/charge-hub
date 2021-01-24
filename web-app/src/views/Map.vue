@@ -25,7 +25,12 @@
 
             <div class="Map__inner">
                 <loader v-if="page.isLoading" />
-                <google-map v-else class="Map__map" :center="map.center" :pins="pins" />
+                <google-map
+                    v-else
+                    class="Map__map"
+                    :center="map.center"
+                    :pins="pins"
+                />
             </div>
         </template>
     </section>
@@ -157,10 +162,10 @@ export default {
         flex-grow: 0;
     }
 
-	&__map {
-		width: 100%;
-		height: 100%;
-	}
+    &__map {
+        width: 100%;
+        height: 100%;
+    }
 
     &__search {
         width: 100%;

@@ -43,6 +43,7 @@ export default {
     },
     methods: {
         drawMap() {
+            console.log('drawMap');
             this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: convertGeoLocationToGoole(this.center),
                 zoom: 14,
@@ -53,7 +54,19 @@ export default {
                     convertGeoLocationFromGoole(mapsMouseEvent.latLng)
                 );
             });
-            this.pins.forEach(pin => {
+            this.drawPins(this.pins);
+        },
+        setMapCenter(center) {
+            console.log('setMapCenter');
+            this.map.setCenter(
+                new this.googleService.maps.LatLng(
+                    center.latitude,
+                    center.longitude
+                )
+            );
+        },
+        drawPins(pins) {
+            pins.forEach(pin => {
                 const marker = new this.googleService.maps.Marker({
                     position: convertGeoLocationToGoole(pin.location),
                     map: this.map,
@@ -77,10 +90,10 @@ export default {
     },
     watch: {
         center() {
-            if (this.isMapRendered) this.drawMap();
+            if (this.isMapRendered) this.setMapCenter(this.center);
         },
         pins() {
-            if (this.isMapRendered) this.drawMap();
+            if (this.isMapRendered) this.drawPins(this.pins);
         },
     },
 };

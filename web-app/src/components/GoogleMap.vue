@@ -49,7 +49,6 @@ export default {
     },
     methods: {
         drawMap() {
-            console.log('drawMap');
             this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: convertGeoLocationToGoole(this.center),
                 zoom: 14,
@@ -63,7 +62,6 @@ export default {
             this.drawPins(this.pins);
         },
         setMapCenter(center) {
-            console.log('setMapCenter');
             this.map.setCenter(
                 new this.googleService.maps.LatLng(
                     center.latitude,

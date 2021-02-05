@@ -56,7 +56,8 @@ export default {
             return [
                 {
                     location: this.editedValue.location,
-                    title: 'Your Location',
+                    title: this.editedValue.name,
+                    icon: 'https://i.imgur.com/ozOhQTP.png',
                 },
             ];
         },

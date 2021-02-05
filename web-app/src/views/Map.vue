@@ -72,8 +72,7 @@ export default {
     computed: {
         pins() {
             this.chargeLocations.forEach(location => {
-                location.icon =
-                    'https://cdn1.iconfinder.com/data/icons/maps-and-navigation-11/24/pin-style-map-park-navigation-three-maps-skate-gps-skateboard-32.png';
+                location.icon = 'https://i.imgur.com/lA72fbg.png';
                 location.popUp = location.description || 'Charge Location';
             });
             const pins = [...this.chargeLocations];
@@ -81,6 +80,7 @@ export default {
                 pins.push({
                     location: this.userLocation,
                     title: 'Your Location',
+                    icon: 'https://i.imgur.com/kJhP2cj.png',
                 });
             return pins;
         },

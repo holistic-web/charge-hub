@@ -5,25 +5,23 @@
     </router-link>
 </template>
 
-
 <script>
 export default {
     props: {
         to: {
             type: Object,
-            required: true
+            required: true,
         },
         image: {
             type: String,
-            required: true
+            required: true,
         },
         text: {
             type: String,
-            required: true
+            required: true,
         },
-    }
-}  
-
+    },
+};
 </script>
 
 <style lang="scss">
@@ -39,7 +37,6 @@ export default {
         font-weight: bold;
     }
     &__image {
-
     }
 }
 </style>

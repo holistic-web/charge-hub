@@ -5,7 +5,8 @@
             :key="menuItem.text"
             :to="menuItem.to"
             :text="menuItem.text"
-            :image="menuItem.image"/>
+            :image="menuItem.image"
+        />
     </nav>
 </template>
 
@@ -14,7 +15,7 @@ import NavBarIcon from './NavBarIcon';
 
 export default {
     components: {
-        NavBarIcon
+        NavBarIcon,
     },
     data: () => ({
         menuItems: [
@@ -35,7 +36,5 @@ export default {
     align-items: center;
     margin: 0.25rem 0;
     padding: 0 0.2rem;
-
-   
 }
 </style>

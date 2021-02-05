@@ -6,17 +6,16 @@ import vuetify from './plugins/vuetify';
 import Toasted from 'vue-toasted';
 
 Vue.use(Toasted, {
-	position: 'top-center'
+    position: 'top-center',
 });
-
 
 Vue.config.productionTip = false;
 
 new Vue({
-	router,
-	vuetify,
+    router,
+    vuetify,
 
-	render: function (h) {
-		return h(App);
-	},
+    render: function(h) {
+        return h(App);
+    },
 }).$mount('#app');

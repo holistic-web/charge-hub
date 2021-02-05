@@ -1,5 +1,5 @@
 <template>
-    <router-link class="NavBarIcon" :to="{ name: 'map' }">
+    <router-link class="NavBarIcon" :to="to">
         <img class="NavBarIcon__image" :src="image"/>
         <span v-text="text"/>
     </router-link>

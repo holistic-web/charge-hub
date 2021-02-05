@@ -82,7 +82,6 @@ export default {
         },
         async goToCurrentLocation() {
             try {
-                console.log('oi');
                 this.userLocation = await getUserLocation();
                 console.log('this.userLocation: ', this.userLocation);
                 this.map.center = this.userLocation;

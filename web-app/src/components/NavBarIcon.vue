@@ -1,7 +1,7 @@
 <template>
     <router-link class="NavBarIcon" :to="to">
-        <img class="NavBarIcon__image" :src="image"/>
-        <span v-text="text"/>
+        <img class="NavBarIcon__image" :src="image" />
+        <span v-text="text" />
     </router-link>
 </template>
 

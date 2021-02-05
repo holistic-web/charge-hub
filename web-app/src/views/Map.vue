@@ -1,13 +1,5 @@
 <template>
     <section class="Map">
-        <v-alert
-            class="Map__alert"
-            v-if="page.errorMessage"
-            type="error"
-            v-text="page.errorMessage"
-            dismissible
-        />
-
         <template>
             <v-text-field
                 placeholder="Search"
@@ -24,9 +16,7 @@
             />
 
             <div class="Map__inner">
-                <loader v-if="page.isLoading" />
                 <google-map
-                    v-else
                     class="Map__map"
                     :center="map.center"
                     :pins="pins"
@@ -38,7 +28,6 @@
 
 <script>
 import loadGoogleMaps from '../lib/loadGoogleMaps';
-import Loader from '../components/Loader';
 import GoogleMap from '../components/GoogleMap';
 import firebaseService from '../lib/firebaseService';
 import getUserLocation from '../lib/getUserLocation';
@@ -48,7 +37,6 @@ const db = firebaseService.firestore();
 
 export default {
     components: {
-        Loader,
         GoogleMap,
     },
 
@@ -94,7 +82,9 @@ export default {
         },
         async goToCurrentLocation() {
             try {
+                console.log('oi');
                 this.userLocation = await getUserLocation();
+                console.log('this.userLocation: ', this.userLocation);
                 this.map.center = this.userLocation;
                 const place = await geocode(
                     {
@@ -135,7 +125,7 @@ export default {
             this.goToCurrentLocation();
             await this.loadPins();
         } catch (err) {
-            this.page.errorMessage = err.message;
+            this.$toasted.error(err.message);
         } finally {
             this.page.isLoading = false;
         }
@@ -151,11 +141,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    &__alert {
-        width: 100%;
-        margin: 0 !important;
-    }
 
     // override to keep search field from growing
     .v-input {

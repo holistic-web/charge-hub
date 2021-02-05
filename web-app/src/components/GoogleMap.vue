@@ -1,9 +1,12 @@
 <template>
-    <section class="GoogleMap" ref="map" />
+    <section class="GoogleMap" ref="map">
+        <loader />
+    </section>
 </template>
 
 <script>
 import loadGoogleMaps from '../lib/loadGoogleMaps';
+import Loader from './Loader';
 
 function convertGeoLocationToGoole(location) {
     return {
@@ -20,6 +23,9 @@ function convertGeoLocationFromGoole(location) {
 }
 
 export default {
+    components: {
+        Loader,
+    },
     props: {
         center: {
             type: Object,

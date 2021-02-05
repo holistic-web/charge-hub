@@ -36,7 +36,5 @@ export default {
     &.router-link-active {
         font-weight: bold;
     }
-    &__image {
-    }
 }
 </style>

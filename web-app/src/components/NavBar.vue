@@ -34,7 +34,6 @@ export default {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    margin: 0.25rem 0;
-    padding: 0 0.2rem;
+    margin: 0.25rem 0.2rem;
 }
 </style>

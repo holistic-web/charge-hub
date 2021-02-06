@@ -53,6 +53,7 @@ export default {
         return {
             googleService: null,
             map: null,
+            infoWindow: null,
         };
     },
     computed: {
@@ -72,6 +73,7 @@ export default {
                     convertGeoLocationFromGoole(mapsMouseEvent.latLng)
                 );
             });
+            this.infoWindow = new this.googleService.maps.InfoWindow();
             this.drawPins(this.pins);
         },
         setMapCenter(center) {
@@ -89,12 +91,10 @@ export default {
                     map: this.map,
                     icon: pin.icon,
                 });
-                const infowindow = new this.googleService.maps.InfoWindow({
-                    content: infoWindowTemplate(pin),
+                marker.addListener('click', () => {
+                    this.infoWindow.setContent(infoWindowTemplate(pin));
+                    this.infoWindow.open(this.map, marker);
                 });
-                marker.addListener('click', () =>
-                    infowindow.open(this.map, marker)
-                );
             });
         },
     },

@@ -20,6 +20,7 @@
                     class="Map__map"
                     :center="map.center"
                     :pins="pins"
+                    :zoom="14"
                 />
             </div>
         </template>
@@ -61,7 +62,8 @@ export default {
         pins() {
             this.chargeLocations.forEach(location => {
                 location.icon = 'https://i.imgur.com/lA72fbg.png';
-                location.popUp = location.description || 'Charge Location';
+                location.popUp = location.name || 'Charge Location';
+                location.title = location.name || 'location.title';
             });
             const pins = [...this.chargeLocations];
             if (this.userLocation)

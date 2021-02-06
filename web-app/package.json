@@ -10,6 +10,7 @@
     "dependencies": {
         "firebase": "^8.2.4",
         "google-maps": "^4.3.3",
+        "handlebars": "^4.7.6",
         "lodash": "^4.17.20",
         "register-service-worker": "^1.7.1",
         "vue": "^2.6.11",

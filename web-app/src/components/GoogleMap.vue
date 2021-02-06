@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import Handlebars from 'handlebars';
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 import Loader from './Loader';
 
@@ -21,6 +22,18 @@ function convertGeoLocationFromGoole(location) {
         longitude: location.lng(),
     };
 }
+
+const infoWindowSource = `
+<div id="content">
+	<h1 id="firstHeading" class="firstHeading">{{name}}</h1>
+	<div id="bodyContent">
+	{{#if description}}
+		<p>{{description}}</p>
+	{{/if}}
+    </div>
+</div>
+`;
+const infoWindowTemplate = Handlebars.compile(infoWindowSource);
 
 export default {
     components: {
@@ -44,6 +57,7 @@ export default {
         return {
             googleService: null,
             map: null,
+            infoWindow: null,
         };
     },
     computed: {
@@ -55,7 +69,11 @@ export default {
         drawMap() {
             this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: convertGeoLocationToGoole(this.center),
+<<<<<<< HEAD
                 zoom: this.zoom,
+=======
+                zoom: 18,
+>>>>>>> 3bcd846d263265b9473761230f0491f7e79be4a8
             });
             this.map.addListener('click', mapsMouseEvent => {
                 this.$emit(
@@ -63,6 +81,7 @@ export default {
                     convertGeoLocationFromGoole(mapsMouseEvent.latLng)
                 );
             });
+            this.infoWindow = new this.googleService.maps.InfoWindow();
             this.drawPins(this.pins);
         },
         setMapCenter(center) {
@@ -81,17 +100,12 @@ export default {
                 const marker = new this.googleService.maps.Marker({
                     position: convertGeoLocationToGoole(pin.location),
                     map: this.map,
-                    title: pin.description,
                     icon: pin.icon,
                 });
-                if (pin.popUp) {
-                    const infowindow = new this.googleService.maps.InfoWindow({
-                        content: pin.popUp,
-                    });
-                    marker.addListener('click', () =>
-                        infowindow.open(this.map, marker)
-                    );
-                }
+                marker.addListener('click', () => {
+                    this.infoWindow.setContent(infoWindowTemplate(pin));
+                    this.infoWindow.open(this.map, marker);
+                });
             });
         },
     },

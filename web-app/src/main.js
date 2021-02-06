@@ -9,17 +9,17 @@ import vuetify from './plugins/vuetify';
 
 Vue.use(Vuex);
 Vue.use(Toasted, {
-	position: 'top-center',
+    position: 'top-center',
 });
 
 Vue.config.productionTip = false;
 
 new Vue({
-	router,
-	store,
-	vuetify,
+    router,
+    store,
+    vuetify,
 
-	render: function (h) {
-		return h(App);
-	},
+    render: function(h) {
+        return h(App);
+    },
 }).$mount('#app');

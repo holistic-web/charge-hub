@@ -8,12 +8,12 @@ Vue.use(Vuex);
 const db = firebaseService.firestore();
 
 const storeConfig = {
-	state: {
-		db
-	},
-	modules: {
-		'charge-locations': chargeLocationStore
-	}
+    state: {
+        db,
+    },
+    modules: {
+        'charge-locations': chargeLocationStore,
+    },
 };
 
 const store = new Vuex.Store(storeConfig);

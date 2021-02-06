@@ -15,10 +15,8 @@
 </template>
 
 <script>
-import firebaseService from '../lib/firebaseService';
+import { mapActions } from 'vuex';
 import EditLocation from '../components/EditLocation';
-
-const db = firebaseService.firestore();
 
 export default {
     data: () => ({
@@ -38,10 +36,12 @@ export default {
         },
     },
     methods: {
+        ...mapActions({
+            createChargeLocation: 'charge-locations/create',
+        }),
         async onSubmitClick() {
             this.page.isSubmitting = true;
-            const newChargePointRef = db.collection('charge-locations').doc();
-            await newChargePointRef.set(this.location);
+            await this.createChargeLocation(this.location);
             this.$router.push({ name: 'map' });
             this.page.isSubmitting = false;
         },

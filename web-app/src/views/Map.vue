@@ -61,13 +61,12 @@ export default {
         pins() {
             this.chargeLocations.forEach(location => {
                 location.icon = 'https://i.imgur.com/lA72fbg.png';
-                location.popUp = location.description || 'Charge Location';
             });
             const pins = [...this.chargeLocations];
             if (this.userLocation)
                 pins.push({
                     location: this.userLocation,
-                    title: 'Your Location',
+                    name: 'Your Location',
                     icon: 'https://i.imgur.com/kJhP2cj.png',
                 });
             return pins;

@@ -55,8 +55,7 @@ export default {
             if (!this.editedValue.location) return [];
             return [
                 {
-                    location: this.editedValue.location,
-                    title: this.editedValue.name,
+                    ...this.editedValue,
                     icon: 'https://i.imgur.com/ozOhQTP.png',
                 },
             ];

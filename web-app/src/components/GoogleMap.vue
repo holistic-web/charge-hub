@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import Handlebars from 'handlebars';
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 import Loader from './Loader';
 
@@ -21,6 +22,18 @@ function convertGeoLocationFromGoole(location) {
         longitude: location.lng(),
     };
 }
+
+const infoWindowSource = `
+<div id="content">
+	<h1 id="firstHeading" class="firstHeading">{{name}}</h1>
+	<div id="bodyContent">
+	{{#if description}}
+		<p>{{description}}</p>
+	{{/if}}
+    </div>
+</div>
+`;
+const infoWindowTemplate = Handlebars.compile(infoWindowSource);
 
 export default {
     components: {
@@ -51,7 +64,7 @@ export default {
         drawMap() {
             this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: convertGeoLocationToGoole(this.center),
-                zoom: 14,
+                zoom: 18,
             });
             this.map.addListener('click', mapsMouseEvent => {
                 this.$emit(
@@ -74,17 +87,14 @@ export default {
                 const marker = new this.googleService.maps.Marker({
                     position: convertGeoLocationToGoole(pin.location),
                     map: this.map,
-                    title: pin.description,
                     icon: pin.icon,
                 });
-                if (pin.popUp) {
-                    const infowindow = new this.googleService.maps.InfoWindow({
-                        content: pin.popUp,
-                    });
-                    marker.addListener('click', () =>
-                        infowindow.open(this.map, marker)
-                    );
-                }
+                const infowindow = new this.googleService.maps.InfoWindow({
+                    content: infoWindowTemplate(pin),
+                });
+                marker.addListener('click', () =>
+                    infowindow.open(this.map, marker)
+                );
             });
         },
     },

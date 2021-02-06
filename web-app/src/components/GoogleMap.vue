@@ -30,14 +30,18 @@ const infoWindowSource = `
 	{{#if description}}
 		<p>{{description}}</p>
 	{{/if}}
-	{{
+	{{#each tags}}
 		// TODO: add foreach here to draw tags
 		https://handlebarsjs.com/guide/builtin-helpers.html#each
-	}}
+		<span class="Tag">{{this}}</span>
+	{{/each}}}}
 	</div>
 
 	<style>
 		// TODO add simple style here to style tags
+		.Tag {
+
+		}
 	</style>
 </div>
 `;

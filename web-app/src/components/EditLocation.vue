@@ -9,6 +9,7 @@
             <google-map
                 class="EditLocation__map"
                 :center="map.center"
+                :zoom="19"
                 :pins="pins"
                 @mapClick="onMapClick"
             />

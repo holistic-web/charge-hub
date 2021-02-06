@@ -31,16 +31,15 @@ const infoWindowSource = `
 		<p>{{description}}</p>
 	{{/if}}
 	{{#each tags}}
-		// TODO: add foreach here to draw tags
-		https://handlebarsjs.com/guide/builtin-helpers.html#each
-		<span class="Tag">{{this}}</span>
-	{{/each}}}}
+		<span class="Tag">#{{this}}</span>
+	{{/each}}
 	</div>
 
 	<style>
-		// TODO add simple style here to style tags
 		.Tag {
-
+			background-color: #B098E9;
+			border-radius: 0.15rem;
+			padding: 0.1rem 0.2rem;
 		}
 	</style>
 </div>

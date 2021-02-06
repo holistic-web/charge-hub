@@ -54,7 +54,7 @@ export default {
         },
         zoom: {
             type: Number,
-            required: true
+            required: true,
         },
         pins: {
             type: Array,
@@ -77,11 +77,7 @@ export default {
         drawMap() {
             this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: convertGeoLocationToGoole(this.center),
-<<<<<<< HEAD
-                zoom: this.zoom,
-=======
                 zoom: 18,
->>>>>>> 3bcd846d263265b9473761230f0491f7e79be4a8
             });
             this.map.addListener('click', mapsMouseEvent => {
                 this.$emit(
@@ -102,7 +98,7 @@ export default {
         },
         setMapZoom(zoom) {
             this.map.setZoom(zoom);
-        }, 
+        },
         drawPins(pins) {
             pins.forEach(pin => {
                 const marker = new this.googleService.maps.Marker({
@@ -130,7 +126,7 @@ export default {
         },
         zoom() {
             if (this.isMapRendered) this.setMapZoom(this.zoom);
-        }
+        },
     },
 };
 </script>

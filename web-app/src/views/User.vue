@@ -22,27 +22,29 @@
 </template>
 
 <script>
-import firebaseService from '../lib/firebaseService';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     data: () => ({
         page: {
             isSubmitting: false,
         },
-        user: null,
     }),
-
+    computed: {
+        ...mapGetters({
+            user: 'account/user',
+        }),
+    },
     methods: {
+        ...mapActions({
+            logOut: 'account/logOut',
+        }),
         async onLogoutClick() {
             this.page.isSubmitting = true;
-            await firebaseService.auth().signOut();
-            window.localStorage.removeItem('user');
+            await this.logOut();
             this.$router.push({ name: 'login' });
             this.page.isSubmitting = false;
         },
-    },
-    created() {
-        this.user = JSON.parse(window.localStorage.getItem('user'));
     },
 };
 </script>

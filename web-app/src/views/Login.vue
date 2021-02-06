@@ -8,42 +8,29 @@
             v-text="'Login'"
             @click="onLoginClick"
         />
-        <v-alert
-            v-if="page.errorMessage"
-            type="error"
-            v-text="page.errorMessage"
-            dismissible
-        />
     </section>
 </template>
 
 <script>
-import firebaseService from '../lib/firebaseService';
+import { mapActions } from 'vuex';
 
 export default {
     data: () => ({
         page: {
             isSubmitting: false,
-            errorMessage: null,
         },
     }),
     methods: {
+        ...mapActions({
+            logIn: 'account/logIn',
+        }),
         async onLoginClick() {
             this.page.isSubmitting = true;
             try {
-                const provider = new firebaseService.auth.GoogleAuthProvider();
-                firebaseService
-                    .auth()
-                    .setPersistence(
-                        firebaseService.auth.Auth.Persistence.LOCAL
-                    );
-                const user = await firebaseService
-                    .auth()
-                    .signInWithPopup(provider);
-                window.localStorage.setItem('user', JSON.stringify(user));
+                await this.logIn();
                 this.$router.push({ name: 'map' });
             } catch (err) {
-                this.page.errorMessage = err.message;
+                this.$toasted.error(err.message);
             } finally {
                 this.page.isSubmitting = false;
             }

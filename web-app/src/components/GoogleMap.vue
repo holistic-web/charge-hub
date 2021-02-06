@@ -30,7 +30,15 @@ const infoWindowSource = `
 	{{#if description}}
 		<p>{{description}}</p>
 	{{/if}}
-    </div>
+	{{
+		// TODO: add foreach here to draw tags
+		https://handlebarsjs.com/guide/builtin-helpers.html#each
+	}}
+	</div>
+
+	<style>
+		// TODO add simple style here to style tags
+	</style>
 </div>
 `;
 const infoWindowTemplate = Handlebars.compile(infoWindowSource);

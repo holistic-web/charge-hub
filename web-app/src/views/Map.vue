@@ -29,13 +29,11 @@
 
 <script>
 import Handlebars from 'handlebars';
+import { mapGetters, mapActions } from 'vuex';
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 import GoogleMap from '../components/GoogleMap';
-import firebaseService from '../lib/firebaseService';
 import getUserLocation from '../lib/getUserLocation';
 import geocode from '../lib/geocode';
-
-const db = firebaseService.firestore();
 
 const infoWindowSource = `
 <div id="content">
@@ -80,11 +78,13 @@ export default {
             zoom: 12,
         },
         userLocation: null,
-        chargeLocations: [],
         geocoder: null,
     }),
 
     computed: {
+        ...mapGetters({
+            chargeLocations: 'charge-locations/list',
+        }),
         pins() {
             this.chargeLocations.forEach(pin => {
                 pin.icon = 'https://i.imgur.com/lA72fbg.png';
@@ -102,11 +102,9 @@ export default {
     },
 
     methods: {
-        async loadPins() {
-            const querySnapshot = await db.collection('charge-locations').get();
-            this.chargeLocations = [];
-            querySnapshot.forEach(doc => this.chargeLocations.push(doc.data()));
-        },
+        ...mapActions({
+            fetchChargeLocations: 'charge-locations/fetchList',
+        }),
         async goToCurrentLocation() {
             try {
                 this.userLocation = await getUserLocation();
@@ -147,9 +145,9 @@ export default {
         this.page.isLoading = true;
         try {
             const googleService = await loadGoogleMaps();
-            this.geocoder = new googleService.maps.Geocoder();
+            this.geocoder = new googleService.maps.Geocoder(); // TODO: improve our google-maps usage to export a geocoding function
             this.goToCurrentLocation();
-            await this.loadPins();
+            await this.fetchChargeLocations();
         } catch (err) {
             this.$toasted.error(err.message);
         } finally {

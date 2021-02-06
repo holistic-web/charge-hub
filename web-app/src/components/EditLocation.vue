@@ -24,7 +24,6 @@
 
 <script>
 import _ from 'lodash';
-import loadGoogleMaps from '../lib/loadGoogleMaps';
 import geocode from '../lib/geocode';
 import GoogleMap from './GoogleMap';
 
@@ -42,14 +41,13 @@ export default {
         editedValue: {},
         map: {
             center: {
-                // TODO move these default values to a config file
-                latitude: 51.508,
-                longitude: 0.1281,
+                // hard coded to Leon Bankside
+                latitude: 51.506521809858164,
+                longitude: -0.09953073735887052,
             },
             searchTerm: '',
             lastSearchTerm: '',
         },
-        geocoder: null,
     }),
     computed: {
         pins() {
@@ -68,10 +66,7 @@ export default {
         },
         onSearchInput: _.debounce(async function() {
             if (this.map.searchTerm === this.map.lastSearchTerm) return;
-            const place = await geocode(
-                { address: this.map.searchTerm },
-                this.geocoder
-            );
+            const place = await geocode({ address: this.map.searchTerm });
             this.map.center = {
                 latitude: place.geometry.location.lat(),
                 longitude: place.geometry.location.lng(),
@@ -81,10 +76,6 @@ export default {
             this.editedValue.location = location;
             this.onValueChange();
         },
-    },
-    async created() {
-        const googleService = await loadGoogleMaps();
-        this.geocoder = new googleService.maps.Geocoder();
     },
     watch: {
         value: {

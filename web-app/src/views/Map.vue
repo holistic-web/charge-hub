@@ -30,7 +30,6 @@
 <script>
 import Handlebars from 'handlebars';
 import { mapGetters, mapActions } from 'vuex';
-import loadGoogleMaps from '../lib/loadGoogleMaps';
 import GoogleMap from '../components/GoogleMap';
 import getUserLocation from '../lib/getUserLocation';
 import geocode from '../lib/geocode';
@@ -78,7 +77,6 @@ export default {
             zoom: 12,
         },
         userLocation: null,
-        geocoder: null,
     }),
 
     computed: {
@@ -110,15 +108,12 @@ export default {
                 this.userLocation = await getUserLocation();
                 console.log('this.userLocation: ', this.userLocation);
                 this.map.center = this.userLocation;
-                const place = await geocode(
-                    {
-                        location: {
-                            lat: this.userLocation.latitude,
-                            lng: this.userLocation.longitude,
-                        },
+                const place = await geocode({
+                    location: {
+                        lat: this.userLocation.latitude,
+                        lng: this.userLocation.longitude,
                     },
-                    this.geocoder
-                );
+                });
                 this.map.searchTerm = place.formatted_address;
             } catch (err) {
                 this.page.errorMessage = err.message;
@@ -127,10 +122,7 @@ export default {
         async lookUpLocation() {
             if (!this.map.searchTerm) return;
             try {
-                const place = await geocode(
-                    { address: this.map.searchTerm },
-                    this.geocoder
-                );
+                const place = await geocode({ address: this.map.searchTerm });
                 this.map.center = {
                     latitude: place.geometry.location.lat(),
                     longitude: place.geometry.location.lng(),
@@ -144,8 +136,6 @@ export default {
     async created() {
         this.page.isLoading = true;
         try {
-            const googleService = await loadGoogleMaps();
-            this.geocoder = new googleService.maps.Geocoder(); // TODO: improve our google-maps usage to export a geocoding function
             this.goToCurrentLocation();
             await this.fetchChargeLocations();
         } catch (err) {

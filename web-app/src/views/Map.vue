@@ -19,8 +19,8 @@
                 <google-map
                     class="Map__map"
                     :center="map.center"
+                    :zoom="map.zoom"
                     :pins="pins"
-                    :zoom="14"
                 />
             </div>
         </template>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import Handlebars from 'handlebars';
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 import GoogleMap from '../components/GoogleMap';
 import firebaseService from '../lib/firebaseService';
@@ -35,6 +36,29 @@ import getUserLocation from '../lib/getUserLocation';
 import geocode from '../lib/geocode';
 
 const db = firebaseService.firestore();
+
+const infoWindowSource = `
+<div id="content">
+	<h1 id="firstHeading" class="firstHeading">{{name}}</h1>
+	<div id="bodyContent">
+	{{#if description}}
+		<p>{{description}}</p>
+	{{/if}}
+	{{#each tags}}
+		<span class="Tag">#{{this}}</span>
+	{{/each}}
+	</div>
+
+	<style>
+		.Tag {
+			background-color: #B098E9;
+			border-radius: 0.15rem;
+			padding: 0.1rem 0.2rem;
+		}
+	</style>
+</div>
+`;
+const infoWindowTemplate = Handlebars.compile(infoWindowSource);
 
 export default {
     components: {
@@ -49,9 +73,11 @@ export default {
         map: {
             searchTerm: '',
             center: {
-                latitude: 51.508,
-                longitude: 0.1281,
+                // hard coded to Leon Bankside
+                latitude: 51.506521809858164,
+                longitude: -0.09953073735887052,
             },
+            zoom: 12,
         },
         userLocation: null,
         chargeLocations: [],
@@ -60,8 +86,9 @@ export default {
 
     computed: {
         pins() {
-            this.chargeLocations.forEach(location => {
-                location.icon = 'https://i.imgur.com/lA72fbg.png';
+            this.chargeLocations.forEach(pin => {
+                pin.icon = 'https://i.imgur.com/lA72fbg.png';
+                pin.infoWindow = infoWindowTemplate(pin);
             });
             const pins = [...this.chargeLocations];
             if (this.userLocation)

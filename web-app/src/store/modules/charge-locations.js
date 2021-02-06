@@ -21,7 +21,7 @@ export default {
 			return list;
 		},
 		create({ rootState }, data) {
-			const newChargePointRef = rootState.db.collection('charge-locations').doc();
+			const newChargePointRef = rootState.db.collection(COLLECTION_NAME).doc();
 			return newChargePointRef.set(data);
 		},
 	},

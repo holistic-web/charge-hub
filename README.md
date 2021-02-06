@@ -4,7 +4,7 @@ A project to help people find publically accessible charging across the world. S
 
 At the core of the idea is a crowd source database of available charging sockets.
 
-![charge-hub](./.project/readme.png)
+![charge-hub](./.project/assets/readme.png)
 
 ## Fact Sheet
 | Key              | Value                          |

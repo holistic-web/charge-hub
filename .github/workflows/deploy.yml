@@ -6,7 +6,7 @@ on:
             - main
             - development
 
-variables:
+env:
     - WEBAPP_PATH: 'web-app/'
     - FUNCTIONS_PATH: 'cloud-functions/'
 
@@ -28,12 +28,12 @@ jobs:
 
             - name: Install Node.js dependencies
               run: |
-                  cd ${{ variables.WEBAPP_PATH }}; npm ci; cd ..;
+                  cd ${{ env.WEBAPP_PATH }}; npm ci; cd ..;
                   cd functions; npm ci; cd ..;
 
             - name: Build Web App
               run: |
-                  cd ${{ variables.WEBAPP_PATH }}
+                  cd ${{ env.WEBAPP_PATH }}
                   npm run build
 
             - name: Set to live if branch is main

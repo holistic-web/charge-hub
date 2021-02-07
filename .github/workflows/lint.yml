@@ -2,7 +2,7 @@ name: lint
 
 on: push
 
-variables:
+env:
     - WEBAPP_PATH: 'web-app/'
 
 jobs:
@@ -23,8 +23,8 @@ jobs:
 
             - name: Install Node.js dependencies
               run: |
-                  cd ${{ variables.WEBAPP_PATH }}; npm ci; cd ..;
-                  cd ${{ variables.FUNCTIONS_PATH }}; npm ci; cd ..;
+                  cd ${{ env.WEBAPP_PATH }}; npm ci; cd ..;
+                  cd ${{ env.FUNCTIONS_PATH }}; npm ci; cd ..;
 
             - name: Run linters on Web App
               uses: wearerequired/lint-action@v1
@@ -34,10 +34,10 @@ jobs:
 
                   # Enable linters
                   eslint: true
-                  eslint_dir: ${{ variables.WEBAPP_PATH }}/
+                  eslint_dir: ${{ env.WEBAPP_PATH }}/
 
                   prettier: true
-                  prettier_dir: ${{ variables.WEBAPP_PATH }}/
+                  prettier_dir: ${{ env.WEBAPP_PATH }}/
 
             - name: Run linters on Functions
               uses: wearerequired/lint-action@v1
@@ -47,7 +47,7 @@ jobs:
 
                   # Enable linters
                   eslint: true
-                  eslint_dir: ${{ variables.FUNCTIONS_PATH }}
+                  eslint_dir: ${{ env.FUNCTIONS_PATH }}
 
                   prettier: true
-                  prettier_dir: ${{ variables.FUNCTIONS_PATH }}
+                  prettier_dir: ${{ env.FUNCTIONS_PATH }}

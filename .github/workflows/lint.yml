@@ -4,6 +4,7 @@ on: push
 
 env:
     WEBAPP_PATH: 'web-app/'
+    FUNCTIONS_PATH: 'cloud-functions/'
 
 jobs:
     lint:

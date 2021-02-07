@@ -29,7 +29,7 @@ jobs:
             - name: Install Node.js dependencies
               run: |
                   cd ${{ env.WEBAPP_PATH }}; npm ci; cd ..;
-                  cd functions; npm ci; cd ..;
+                  cd ${{ env.FUNCTIONS_PATH }}; npm ci; cd ..;
 
             - name: Build Web App
               run: |

@@ -22,10 +22,14 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Build project
+            - name: Install Node.js dependencies
+              run: |
+                  cd web-app; npm ci; cd ..;
+                  cd functions; npm ci; cd ..;
+
+            - name: Build Web App
               run: |
                   cd web-app
-                  npm ci
                   npm run build
 
             - name: Set to live if branch is main

@@ -9,7 +9,7 @@ jobs:
         strategy:
             matrix:
                 node-version: [10.x]
-
+3
         steps:
             - uses: actions/checkout@v2
 
@@ -20,11 +20,8 @@ jobs:
 
             - name: Install Node.js dependencies
               run: |
-                  cd web-app
-                  npm ci
-                  cd ..
-                  cd functions
-                  npm ci
+                  cd web-app; npm ci; cd ..;
+                  cd functions; npm ci; cd ..;
 
             - name: Run linters on Web App
               uses: wearerequired/lint-action@v1

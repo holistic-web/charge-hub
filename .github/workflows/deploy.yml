@@ -1,4 +1,4 @@
-name: webapp-deploy
+name: deploy
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
             - development
 
 jobs:
-    webapp-deploy:
+    deploy:
         runs-on: ubuntu-latest
 
         strategy:
@@ -37,6 +37,5 @@ jobs:
             - name: Deploy to Firebase
               uses: w9jds/firebase-action@master
               with:
-                  args: deploy --only hosting
               env:
                   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

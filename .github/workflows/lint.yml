@@ -1,9 +1,9 @@
-name: webapp-lint
+name: lint
 
 on: push
 
 jobs:
-    webapp-lint:
+    lint:
         runs-on: ubuntu-latest
 
         strategy:
@@ -23,7 +23,7 @@ jobs:
                   cd web-app
                   npm ci
 
-            - name: Run linters
+            - name: Run linters on Web App
               uses: wearerequired/lint-action@v1
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -35,3 +35,16 @@ jobs:
 
                   prettier: true
                   prettier_dir: web-app/
+
+            - name: Run linters on Functions
+              uses: wearerequired/lint-action@v1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  auto_fix: true
+
+                  # Enable linters
+                  eslint: true
+                  eslint_dir: functions/
+
+                  prettier: true
+                  prettier_dir: functions/

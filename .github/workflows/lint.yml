@@ -22,6 +22,9 @@ jobs:
               run: |
                   cd web-app
                   npm ci
+                  cd ..
+                  cd functions
+                  npm ci
 
             - name: Run linters on Web App
               uses: wearerequired/lint-action@v1

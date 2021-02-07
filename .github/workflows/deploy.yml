@@ -6,6 +6,10 @@ on:
             - main
             - development
 
+variables:
+    - WEBAPP_PATH: 'web-app/'
+    - FUNCTIONS_PATH: 'cloud-functions/'
+
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -24,12 +28,12 @@ jobs:
 
             - name: Install Node.js dependencies
               run: |
-                  cd web-app; npm ci; cd ..;
+                  cd ${{ variables.WEBAPP_PATH }}; npm ci; cd ..;
                   cd functions; npm ci; cd ..;
 
             - name: Build Web App
               run: |
-                  cd web-app
+                  cd ${{ variables.WEBAPP_PATH }}
                   npm run build
 
             - name: Set to live if branch is main

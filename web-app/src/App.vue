@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import NavBar from './components/NavBar';
 
 export default {
@@ -22,6 +23,14 @@ export default {
             if (this.$route.name === 'login') return false;
             return true;
         },
+    },
+    methods: {
+        ...mapActions({
+            configureAuth: 'account/configureAuth',
+        }),
+    },
+    created() {
+        this.configureAuth();
     },
 };
 </script>

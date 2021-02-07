@@ -106,7 +106,6 @@ export default {
         async goToCurrentLocation() {
             try {
                 this.userLocation = await getUserLocation();
-                console.log('this.userLocation: ', this.userLocation);
                 this.map.center = this.userLocation;
                 const place = await geocode({
                     location: {

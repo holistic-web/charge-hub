@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     data: () => ({
@@ -20,6 +20,14 @@ export default {
             isSubmitting: false,
         },
     }),
+    computed: {
+        ...mapGetters({
+            user: 'account/user',
+        }),
+        nextRoute() {
+            return this.$route.query.redirect || { name: 'map' };
+        },
+    },
     methods: {
         ...mapActions({
             logIn: 'account/logIn',
@@ -28,12 +36,16 @@ export default {
             this.page.isSubmitting = true;
             try {
                 await this.logIn();
-                this.$router.push({ name: 'map' });
             } catch (err) {
                 this.$toasted.error(err.message);
             } finally {
                 this.page.isSubmitting = false;
             }
+        },
+    },
+    watch: {
+        user() {
+            if (this.user) this.$router.replace(this.nextRoute);
         },
     },
 };

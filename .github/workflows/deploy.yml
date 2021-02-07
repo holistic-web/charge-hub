@@ -7,8 +7,8 @@ on:
             - development
 
 env:
-    - WEBAPP_PATH: 'web-app/'
-    - FUNCTIONS_PATH: 'cloud-functions/'
+    WEBAPP_PATH: 'web-app/'
+    FUNCTIONS_PATH: 'cloud-functions/'
 
 jobs:
     deploy:

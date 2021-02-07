@@ -3,7 +3,7 @@ name: lint
 on: push
 
 env:
-    - WEBAPP_PATH: 'web-app/'
+    WEBAPP_PATH: 'web-app/'
 
 jobs:
     lint:

@@ -5,9 +5,9 @@ const onChargeLocationWrite = require('./triggers/onChargeLocationWrite');
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 const collections = {
-	chargeLocations: 'charge-locations'
+    chargeLocations: 'charge-locations',
 };
 
 exports.onChargeLocationWrite = functions.firestore
-	.document(`${collections.chargeLocations}/{docId}`)
-	.onWrite(onChargeLocationWrite);
+    .document(`${collections.chargeLocations}/{docId}`)
+    .onWrite(onChargeLocationWrite);

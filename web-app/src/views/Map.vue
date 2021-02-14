@@ -103,16 +103,20 @@ export default {
         ...mapActions({
             fetchChargeLocations: 'charge-locations/fetchList',
         }),
+        setCenter(center) {
+            this.fetchChargeLocations({ center });
+            this.map.center = center;
+        },
         async goToCurrentLocation() {
             try {
                 this.userLocation = await getUserLocation();
-                this.map.center = this.userLocation;
                 const place = await geocode({
                     location: {
                         lat: this.userLocation.latitude,
                         lng: this.userLocation.longitude,
                     },
                 });
+                this.setCenter(this.userLocation);
                 this.map.searchTerm = place.formatted_address;
             } catch (err) {
                 this.page.errorMessage = err.message;
@@ -122,10 +126,10 @@ export default {
             if (!this.map.searchTerm) return;
             try {
                 const place = await geocode({ address: this.map.searchTerm });
-                this.map.center = {
+                this.setCenter({
                     latitude: place.geometry.location.lat(),
                     longitude: place.geometry.location.lng(),
-                };
+                });
             } catch (err) {
                 this.page.errorMessage = err.message;
             }
@@ -135,8 +139,8 @@ export default {
     async created() {
         this.page.isLoading = true;
         try {
+            this.fetchChargeLocations({ center: this.map.center });
             this.goToCurrentLocation();
-            await this.fetchChargeLocations();
         } catch (err) {
             this.$toasted.error(err.message);
         } finally {

@@ -59,7 +59,7 @@ export default {
                 center: convertGeoLocationToGoole(this.center),
                 zoom: this.zoom,
             });
-            this.map.addListener('click', (mapsMouseEvent) => {
+            this.map.addListener('click', mapsMouseEvent => {
                 this.$emit(
                     'mapClick',
                     convertGeoLocationFromGoole(mapsMouseEvent.latLng)
@@ -80,7 +80,7 @@ export default {
             this.map.setZoom(zoom);
         },
         drawPins(pins) {
-            pins.forEach((pin) => {
+            pins.forEach(pin => {
                 const marker = new this.googleService.maps.Marker({
                     position: convertGeoLocationToGoole(pin.location),
                     map: this.map,

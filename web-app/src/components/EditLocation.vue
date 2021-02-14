@@ -64,7 +64,7 @@ export default {
         onValueChange() {
             this.$emit('input', this.editedValue);
         },
-        onSearchInput: _.debounce(async function () {
+        onSearchInput: _.debounce(async function() {
             if (this.map.searchTerm === this.map.lastSearchTerm) return;
             const place = await geocode({ address: this.map.searchTerm });
             this.map.center = {

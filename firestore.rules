@@ -6,6 +6,9 @@ function userExists() {
 function isNewDocument() {
 	return resource == null;
 }
+function isSigned() {
+	return request.resource.data.createdBy == request.auth.uid && request.time == request.resource.data.createdAt;
+}
 
 service cloud.firestore {
 	match /databases/{database}/documents {
@@ -16,7 +19,7 @@ service cloud.firestore {
 
 		match /charge-locations/{key} {
 			allow read: if userExists();
-			allow write: if isNewDocument();
+			allow write: if isNewDocument() && isSigned();
 		}
 
 	}

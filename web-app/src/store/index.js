@@ -7,17 +7,17 @@ import chargeLocationStore from './modules/charge-locations';
 Vue.use(Vuex);
 
 const auth = firebaseService.auth;
-const db = firebaseService.firestore();
+const firestore = firebaseService.firestore;
 
 const storeConfig = {
-    state: {
-        auth,
-        db,
-    },
-    modules: {
-        account: accountStore,
-        'charge-locations': chargeLocationStore,
-    },
+	state: {
+		auth,
+		firestore,
+	},
+	modules: {
+		account: accountStore,
+		'charge-locations': chargeLocationStore,
+	},
 };
 
 const store = new Vuex.Store(storeConfig);

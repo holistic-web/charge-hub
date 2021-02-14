@@ -10,14 +10,14 @@ const auth = firebaseService.auth;
 const firestore = firebaseService.firestore;
 
 const storeConfig = {
-	state: {
-		auth,
-		firestore,
-	},
-	modules: {
-		account: accountStore,
-		'charge-locations': chargeLocationStore,
-	},
+    state: {
+        auth,
+        firestore,
+    },
+    modules: {
+        account: accountStore,
+        'charge-locations': chargeLocationStore,
+    },
 };
 
 const store = new Vuex.Store(storeConfig);

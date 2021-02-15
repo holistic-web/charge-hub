@@ -5,8 +5,8 @@ export default async function geocode(options) {
     const googleService = await loadGoogleMaps();
     const geocoder = new googleService.maps.Geocoder();
 
-    return new Promise(function (resolve, reject) {
-        geocoder.geocode(options, function (results, status) {
+    return new Promise(function(resolve, reject) {
+        geocoder.geocode(options, function(results, status) {
             if (status === 'OK') {
                 resolve(results[0]);
             } else {

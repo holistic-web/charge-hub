@@ -90,6 +90,7 @@ export default {
                     position: convertGeoLocationToGoogle(pin.location),
                     map: this.map,
                     icon: pin.icon,
+                    draggable: pin.draggable,
                 });
                 if (pin.infoWindow) {
                     marker.addListener('click', () => {

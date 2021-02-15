@@ -18,12 +18,18 @@
 import { mapActions } from 'vuex';
 import EditLocation from '../components/EditLocation';
 
+// hard coded to Leon Bankside
+const DEFAULT_LOCATION = {
+    latitude: 51.506521809858164,
+    longitude: -0.09953073735887052,
+};
+
 export default {
     data: () => ({
         page: {
             isSubmitting: false,
         },
-        location: {},
+        location: { location: DEFAULT_LOCATION },
     }),
     components: {
         EditLocation,

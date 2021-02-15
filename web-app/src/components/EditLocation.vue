@@ -27,6 +27,12 @@ import _ from 'lodash';
 import geocode from '../lib/geocode';
 import GoogleMap from './GoogleMap';
 
+// hard coded to Leon Bankside
+const DEFAULT_LOCATION = {
+    latitude: 51.506521809858164,
+    longitude: -0.09953073735887052,
+};
+
 export default {
     components: {
         GoogleMap,
@@ -38,24 +44,22 @@ export default {
         },
     },
     data: () => ({
-        editedValue: {},
+        editedValue: {
+            location: DEFAULT_LOCATION,
+        },
         map: {
-            center: {
-                // hard coded to Leon Bankside
-                latitude: 51.506521809858164,
-                longitude: -0.09953073735887052,
-            },
+            center: DEFAULT_LOCATION,
             searchTerm: '',
             lastSearchTerm: '',
         },
     }),
     computed: {
         pins() {
-            if (!this.editedValue.location) return [];
             return [
                 {
                     ...this.editedValue,
                     icon: 'https://i.imgur.com/ozOhQTP.png',
+                    draggable: true,
                 },
             ];
         },
@@ -64,7 +68,7 @@ export default {
         onValueChange() {
             this.$emit('input', this.editedValue);
         },
-        onSearchInput: _.debounce(async function () {
+        onSearchInput: _.debounce(async function() {
             if (this.map.searchTerm === this.map.lastSearchTerm) return;
             const place = await geocode({ address: this.map.searchTerm });
             this.map.center = {

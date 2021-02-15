@@ -25,7 +25,7 @@ export default {
                 image: 'https://i.imgur.com/Hi2p7F6.png',
             },
             {
-                to: { name: 'add-location' },
+                to: { name: 'add-charge-location' },
                 text: 'Add Point',
                 image: 'https://i.imgur.com/ozOhQTP.png',
             },

@@ -1,9 +1,9 @@
 <template>
-    <section class="AddLocation">
-        <edit-location v-model="location" />
+    <section class="AddChargeLocation">
+        <edit-charge-location v-model="chargeLocation" />
 
         <v-btn
-            class="AddLocation__button"
+            class="AddChargeLocation__button"
             :disabled="isSubmitButtonDisabled"
             color="primary"
             v-text="'Create'"
@@ -16,7 +16,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import EditLocation from '../components/EditLocation';
+import EditChargeLocation from '../components/EditChargeLocation';
 
 // hard coded to Leon Bankside
 const DEFAULT_LOCATION = {
@@ -29,15 +29,15 @@ export default {
         page: {
             isSubmitting: false,
         },
-        location: { location: DEFAULT_LOCATION },
+        chargeLocation: { location: DEFAULT_LOCATION },
     }),
     components: {
-        EditLocation,
+        EditChargeLocation,
     },
     computed: {
         isSubmitButtonDisabled() {
-            if (!this.location.name) return true;
-            if (!this.location.location) return true;
+            if (!this.chargeLocation.name) return true;
+            if (!this.chargeLocation.location) return true;
             return this.page.isSubmitting;
         },
     },
@@ -47,7 +47,7 @@ export default {
         }),
         async onSubmitClick() {
             this.page.isSubmitting = true;
-            await this.createChargeLocation(this.location);
+            await this.createChargeLocation(this.chargeLocation);
             this.$router.push({ name: 'map' });
             this.page.isSubmitting = false;
         },
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-.AddLocation {
+.AddChargeLocation {
     height: 100%;
     padding: 1rem;
     display: flex;

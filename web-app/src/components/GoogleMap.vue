@@ -8,14 +8,14 @@
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 import Loader from './Loader';
 
-function convertGeoLocationToGoole(location) {
+function convertGeoLocationToGoogle(location) {
     return {
         lat: location.latitude,
         lng: location.longitude,
     };
 }
 
-function convertGeoLocationFromGoole(location) {
+function convertGeoLocationFromGoogle(location) {
     return {
         latitude: location.lat(),
         longitude: location.lng(),
@@ -45,6 +45,7 @@ export default {
         return {
             googleService: null,
             map: null,
+            markers: [],
             infoWindow: null,
         };
     },
@@ -56,13 +57,13 @@ export default {
     methods: {
         drawMap() {
             this.map = new this.googleService.maps.Map(this.$refs.map, {
-                center: convertGeoLocationToGoole(this.center),
+                center: convertGeoLocationToGoogle(this.center),
                 zoom: this.zoom,
             });
-            this.map.addListener('click', (mapsMouseEvent) => {
+            this.map.addListener('click', mapsMouseEvent => {
                 this.$emit(
                     'mapClick',
-                    convertGeoLocationFromGoole(mapsMouseEvent.latLng)
+                    convertGeoLocationFromGoogle(mapsMouseEvent.latLng)
                 );
             });
             this.infoWindow = new this.googleService.maps.InfoWindow();
@@ -80,9 +81,13 @@ export default {
             this.map.setZoom(zoom);
         },
         drawPins(pins) {
-            pins.forEach((pin) => {
+            if (this.markers.length > 0) {
+                this.markers.forEach(marker => marker.setMap(null));
+                this.markers = [];
+            }
+            pins.forEach(pin => {
                 const marker = new this.googleService.maps.Marker({
-                    position: convertGeoLocationToGoole(pin.location),
+                    position: convertGeoLocationToGoogle(pin.location),
                     map: this.map,
                     icon: pin.icon,
                 });
@@ -92,6 +97,7 @@ export default {
                         this.infoWindow.open(this.map, marker);
                     });
                 }
+                this.markers.push(marker);
             });
         },
     },

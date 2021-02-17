@@ -44,8 +44,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
     if (to.meta.public) return next();
-    const user = await store.getters['account/user'];
-    if (!user) return next({ name: 'login', query: { redirect: to.fullPath } });
+    const auth = await store.getters['account/auth'];
+    if (!auth) return next({ name: 'login', query: { redirect: to.fullPath } });
     return next();
 });
 

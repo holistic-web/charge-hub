@@ -1,15 +1,15 @@
 <template>
     <section class="User">
-        <v-card v-if="user" class="User__card">
+        <v-card v-if="displayUser" class="User__card">
             <v-img
                 class="User__card__image"
-                v-if="user.photoURL"
-                :src="user.photoURL"
+                v-if="displayUser.photoURL"
+                :src="displayUser.photoURL"
             ></v-img>
 
-            <v-card-title v-text="user.displayName" />
+            <v-card-title v-text="displayUser.displayName" />
 
-            <v-card-subtitle v-text="user.email" />
+            <v-card-subtitle v-text="displayUser.email" />
         </v-card>
 
         <v-btn
@@ -32,8 +32,15 @@ export default {
     }),
     computed: {
         ...mapGetters({
+            auth: 'account/auth',
             user: 'account/user',
         }),
+        displayUser() {
+            return {
+                ...this.user,
+                ...this.auth,
+            };
+        },
     },
     methods: {
         ...mapActions({

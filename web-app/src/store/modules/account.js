@@ -33,7 +33,7 @@ export default {
                 .auth()
                 .setPersistence(rootState.auth.Auth.Persistence.LOCAL);
             await rootState.auth().signInWithPopup(provider);
-            return dispatch('fetchUser');
+            dispatch('fetchUser');
         },
         logOut({ rootState, commit }) {
             commit('SET_AUTH', null);

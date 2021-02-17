@@ -20,11 +20,6 @@ export default {
     data: () => ({
         menuItems: [
             {
-                to: { name: 'user' },
-                text: 'Profile',
-                image: 'https://i.imgur.com/Hi2p7F6.png',
-            },
-            {
                 to: { name: 'add-charge-location' },
                 text: 'Add Point',
                 image: 'https://i.imgur.com/ozOhQTP.png',
@@ -34,6 +29,11 @@ export default {
                 text: 'Map',
                 image: 'https://i.imgur.com/kJhP2cj.png',
             },
+            {
+                to: { name: 'user' },
+                text: 'Profile',
+                image: 'https://i.imgur.com/Hi2p7F6.png',
+            }
         ],
     }),
 };

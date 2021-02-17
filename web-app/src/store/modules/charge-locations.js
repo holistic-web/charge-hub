@@ -4,15 +4,30 @@ const COLLECTION_NAME = 'charge-locations';
 export default {
     namespaced: true,
     state: {
+        detail: null,
         list: [],
     },
     mutations: {
+        SET_DETAIL(state, data) {
+            state.detail = data;
+        },
         SET_LIST(state, data) {
             state.list = data;
         },
     },
     actions: {
-        async fetchList({ commit, rootState }, options = {}) {
+        async fetchDetail({ rootState, commit }, id) {
+            console.log('id: ', id);
+            const docRef = rootState
+                .firestore()
+                .collection(COLLECTION_NAME)
+                .doc(id);
+            const doc = await docRef.get();
+            const detail = doc.data();
+            commit('SET_DETAIL', detail);
+            return detail;
+        },
+        async fetchList({ rootState, commit }, options = {}) {
             if (options.center) {
                 const center = options.center;
                 const radius = options.radius || 30;
@@ -78,6 +93,7 @@ export default {
         },
     },
     getters: {
+        detail: state => state.detail,
         list: state => state.list,
     },
 };

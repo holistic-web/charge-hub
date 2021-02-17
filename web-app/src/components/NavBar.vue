@@ -20,7 +20,7 @@ export default {
     data: () => ({
         menuItems: [
             {
-                to: { name: 'add-charge-location' },
+                to: { name: 'charge-location-new' },
                 text: 'Add Point',
                 image: 'https://i.imgur.com/ozOhQTP.png',
             },

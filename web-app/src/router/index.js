@@ -5,6 +5,7 @@ import Map from '../views/Map';
 import User from '../views/User';
 import Login from '../views/Login';
 import AddChargeLocation from '../views/AddChargeLocation';
+import ViewChargeLocation from '../views/ViewChargeLocation';
 
 Vue.use(VueRouter);
 
@@ -26,9 +27,14 @@ const routes = [
         meta: { public: true },
     },
     {
-        path: '/add-charge-location',
-        name: 'add-charge-location',
+        path: '/charge-location/new',
+        name: 'charge-location-new',
         component: AddChargeLocation,
+    },
+    {
+        path: '/charge-location/:id',
+        name: 'charge-location',
+        component: ViewChargeLocation,
     },
     {
         path: '*',

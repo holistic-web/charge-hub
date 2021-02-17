@@ -1,5 +1,5 @@
 <template>
-    <section class="EditLocation">
+    <section class="EditChargeLocation">
         <div>
             <v-text-field
                 label="Search then click the map to add a pin"
@@ -7,7 +7,7 @@
                 @input="onSearchInput"
             />
             <google-map
-                class="EditLocation__map"
+                class="EditChargeLocation__map"
                 :center="map.center"
                 :zoom="19"
                 :pins="pins"
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss">
-.EditLocation {
+.EditChargeLocation {
     > * {
         margin-bottom: 1rem;
     }

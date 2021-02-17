@@ -2,8 +2,6 @@ const admin = require('firebase-admin');
 const _ = require('lodash');
 const geofire = require('geofire-common');
 
-admin.initializeApp();
-
 function hasLocationChanged(beforeData, afterData) {
     if (!beforeData) return false;
     if (!afterData) return false;

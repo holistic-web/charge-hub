@@ -1,12 +1,12 @@
+const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+const collections = require('./collections.json');
 const onChargeLocationWrite = require('./triggers/onChargeLocationWrite');
+const onUserSignUp = require('./triggers/onUserSignup');
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+admin.initializeApp();
 
-const collections = {
-    chargeLocations: 'charge-locations',
-};
+exports.onUserSignUp = functions.auth.user().onCreate(onUserSignUp);
 
 exports.onChargeLocationWrite = functions.firestore
     .document(`${collections.chargeLocations}/{docId}`)

@@ -3,8 +3,11 @@ rules_version = '2';
 function userExists() {
 	return request.auth.uid != null;
 }
+function matchesUserId(key) {
+	return request.auth.uid == key;
+}
 function isNewDocument() {
-	return resource == null;
+	return request.resource == null;
 }
 function isSigned() {
 	return request.resource.data.createdBy == request.auth.uid && request.time == request.resource.data.createdAt;
@@ -15,6 +18,10 @@ service cloud.firestore {
 
 		match /{document=**} {
 			allow read, write: if false;
+		}
+
+		match /users/{key} {
+			allow read: if matchesUserId(key);
 		}
 
 		match /charge-locations/{key} {

@@ -33,7 +33,7 @@ export default {
                 to: { name: 'user' },
                 text: 'Profile',
                 image: 'https://i.imgur.com/Hi2p7F6.png',
-            }
+            },
         ],
     }),
 };

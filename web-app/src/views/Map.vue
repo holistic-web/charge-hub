@@ -34,9 +34,11 @@ import GoogleMap from '../components/GoogleMap';
 import getUserLocation from '../lib/getUserLocation';
 import geocode from '../lib/geocode';
 
+// the handleMarkerClickThrough method is composed in the created() hook
 const infoWindowSource = `
 <div id="content">
 	<h1 id="firstHeading" class="firstHeading">{{name}}</h1>
+	<btn class="CTA" onclick="handleMarkerClickThrough('{{_id}}')">View Details</btn>
 	<div id="bodyContent">
 	{{#if description}}
 		<p>{{description}}</p>
@@ -47,6 +49,11 @@ const infoWindowSource = `
 	</div>
 
 	<style>
+		.CTA {
+			color: #B098E9;
+			text-decoration: underline;
+			cursor: pointer;
+		}
 		.Tag {
 			background-color: #B098E9;
 			border-radius: 0.15rem;
@@ -56,6 +63,12 @@ const infoWindowSource = `
 </div>
 `;
 const infoWindowTemplate = Handlebars.compile(infoWindowSource);
+
+// hard coded to Leon Bankside
+const DEFAULT_LOCATION = {
+    latitude: 51.506521809858164,
+    longitude: -0.09953073735887052,
+};
 
 export default {
     components: {
@@ -69,11 +82,7 @@ export default {
         },
         map: {
             searchTerm: '',
-            center: {
-                // hard coded to Leon Bankside
-                latitude: 51.506521809858164,
-                longitude: -0.09953073735887052,
-            },
+            center: DEFAULT_LOCATION,
             zoom: 12,
         },
         userLocation: null,
@@ -135,8 +144,16 @@ export default {
             }
         },
     },
-
     async created() {
+        // Wire up infowindow click handler
+        window.$router = this.$router;
+        window.handleMarkerClickThrough = function(chargeLocationId) {
+            window.$router.push({
+                name: 'charge-location',
+                params: { id: chargeLocationId },
+            });
+        };
+
         this.page.isLoading = true;
         try {
             this.fetchChargeLocations({ center: this.map.center });

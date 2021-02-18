@@ -1,24 +1,45 @@
 <template>
     <section class="EditChargeLocation">
-        <div>
-            <v-text-field
-                label="Search then click the map to add a pin"
-                v-model="map.searchTerm"
-                @input="onSearchInput"
-            />
-            <google-map
-                class="EditChargeLocation__map"
-                :center="map.center"
-                :zoom="19"
-                :pins="pins"
-                @mapClick="onMapClick"
-            />
-        </div>
+        <v-text-field
+            label="Search then click the map to add a pin"
+            v-model="map.searchTerm"
+            @input="onSearchInput"
+        />
+        <google-map
+            class="EditChargeLocation__map"
+            :center="map.center"
+            :zoom="19"
+            :pins="pins"
+            @mapClick="onMapClick"
+        />
+
         <v-text-field
             label="Give this charge point a name"
             v-model="editedValue.name"
             @input="onValueChange"
         />
+
+        <span>Add Tags</span>
+        <v-combobox
+            v-model="editedValue.tags"
+            chips
+            clearable
+            multiple
+            solo
+            @input="onValueChange"
+        >
+            <template v-slot:selection="{ attrs, item, select, selected }">
+                <v-chip
+                    v-bind="attrs"
+                    :input-value="selected"
+                    close
+                    @click="select"
+                    @click:close="removeTag(item)"
+                >
+                    <span>{{ item }}</span>
+                </v-chip>
+            </template>
+        </v-combobox>
     </section>
 </template>
 
@@ -80,12 +101,20 @@ export default {
             this.editedValue.location = location;
             this.onValueChange();
         },
+        removeTag(item) {
+            this.editedValue.tags.splice(
+                this.editedValue.tags.indexOf(item),
+                1
+            );
+            this.editedValue.tags = [...this.editedValue.tags];
+        },
     },
     watch: {
         value: {
             immediate: true,
             handler() {
                 this.editedValue = { ...this.value };
+                this.map.center = this.editedValue.location;
             },
         },
     },
@@ -95,11 +124,12 @@ export default {
 <style lang="scss">
 .EditChargeLocation {
     > * {
-        margin-bottom: 1rem;
+        margin: 0 1rem !important;
     }
 
     &__map {
         height: 250px;
+        margin: 2rem 0 1rem 0 !important;
     }
 }
 </style>

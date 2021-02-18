@@ -51,4 +51,4 @@ We have two automated actions configured for the web-app:
 ## Icons
 
 We have Material Design icons set up as our icon package, all icons can be searched for here:
-https://vuetifyjs.com/en/features/icons/#material-design-icons
+https://materialdesignicons.com/

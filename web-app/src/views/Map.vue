@@ -145,7 +145,7 @@ export default {
         },
     },
     async created() {
-        // Wire up infowindow click handler
+        // Wire up the infowindow click handler
         window.$router = this.$router;
         window.handleMarkerClickThrough = function(chargeLocationId) {
             window.$router.push({

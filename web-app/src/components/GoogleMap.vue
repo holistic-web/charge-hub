@@ -7,6 +7,7 @@
 <script>
 import loadGoogleMaps from '../lib/loadGoogleMaps';
 import Loader from './Loader';
+const GoogleMapStyle = require('./GoogleMapStyle.json');
 
 function convertGeoLocationToGoogle(location) {
     return {
@@ -59,6 +60,8 @@ export default {
             this.map = new this.googleService.maps.Map(this.$refs.map, {
                 center: convertGeoLocationToGoogle(this.center),
                 zoom: this.zoom,
+                disableDefaultUI: true,
+                styles: GoogleMapStyle,
             });
             this.map.addListener('click', mapsMouseEvent => {
                 this.$emit(

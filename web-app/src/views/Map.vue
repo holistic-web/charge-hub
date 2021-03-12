@@ -1,29 +1,29 @@
 <template>
     <section class="Map">
-        <template>
-            <v-text-field
-                placeholder="Search"
-                prepend-inner-icon="mdi-map-marker"
-                append-icon="mdi-map-search"
-                v-model="map.searchTerm"
-                full-width
-                hide-details
-                outlined
-                clearable
-                @click:prepend-inner="goToCurrentLocation"
-                @click:append="lookUpLocation"
-                @keyup.enter="lookUpLocation"
-            />
+        <burger class="Map__burger" />
 
-            <div class="Map__inner">
-                <google-map
-                    class="Map__map"
-                    :center="map.center"
-                    :zoom="map.zoom"
-                    :pins="pins"
-                />
-            </div>
-        </template>
+        <v-text-field
+            class="Map__search"
+            placeholder="Search"
+            prepend-inner-icon="mdi-map-marker"
+            append-icon="mdi-magnify"
+            v-model="map.searchTerm"
+            hide-details
+            outlined
+            clearable
+            @click:prepend-inner="goToCurrentLocation"
+            @click:append="lookUpLocation"
+            @keyup.enter="lookUpLocation"
+        />
+
+        <div class="Map__inner">
+            <google-map
+                class="Map__map"
+                :center="map.center"
+                :zoom="map.zoom"
+                :pins="pins"
+            />
+        </div>
     </section>
 </template>
 
@@ -31,6 +31,7 @@
 import Handlebars from 'handlebars';
 import { mapGetters, mapActions } from 'vuex';
 import GoogleMap from '../components/GoogleMap';
+import Burger from '../components/Burger';
 import getUserLocation from '../lib/getUserLocation';
 import geocode from '../lib/geocode';
 
@@ -72,6 +73,7 @@ const DEFAULT_LOCATION = {
 
 export default {
     components: {
+        Burger,
         GoogleMap,
     },
 
@@ -94,7 +96,7 @@ export default {
         }),
         pins() {
             this.chargeLocations.forEach(pin => {
-                pin.icon = 'https://i.imgur.com/lA72fbg.png';
+                pin.icon = 'https://i.imgur.com/WmPeeXz.png';
                 pin.infoWindow = infoWindowTemplate(pin);
             });
             const pins = [...this.chargeLocations];
@@ -102,7 +104,7 @@ export default {
                 pins.push({
                     location: this.userLocation,
                     name: 'Your Location',
-                    icon: 'https://i.imgur.com/kJhP2cj.png',
+                    icon: 'https://i.imgur.com/uZq0v1n.png',
                 });
             return pins;
         },
@@ -168,6 +170,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../styles';
 .Map {
     width: 100%;
     height: 100%;
@@ -176,18 +179,27 @@ export default {
     align-items: center;
     justify-content: center;
 
-    // override to keep search field from growing
-    .v-input {
-        flex-grow: 0;
+    &__burger {
+        position: absolute;
+        left: 5%;
+        top: 5%;
+        z-index: 2;
+    }
+
+    &__search {
+        @extend .floating-action-button;
+        @extend .floating-action-button--rounded;
+        position: absolute;
+        width: 90%;
+        top: 15%;
+        left: 5%;
+        z-index: 2;
     }
 
     &__map {
         width: 100%;
         height: 100%;
-    }
-
-    &__search {
-        width: 100%;
+        position: relative;
     }
 
     &__inner {

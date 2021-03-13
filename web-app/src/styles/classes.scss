@@ -1,0 +1,11 @@
+@import './colours';
+
+.floating-action-button {
+    border-radius: 8px;
+    background: $colour-light;
+    box-shadow: 0px 4px 4px lighten($colour-dark, 85%);
+
+    &--rounded {
+        border-radius: 5rem;
+    }
+}
